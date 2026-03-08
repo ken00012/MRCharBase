@@ -803,6 +803,10 @@ public class SpatialAudioPlayer : MonoBehaviour, ISpatialAudioPlayer
         // GetCancellationTokenOnDestroy: GameObject 廃棄時（シーン遺移・クラッシュ）に自動キャンセル
         await UniTask.WaitWhile(() => audioSource.isPlaying,
             cancellationToken: this.GetCancellationTokenOnDestroy());
+        
+        // 再生完了後にメモリを解放
+        audioSource.clip = null;
+        UnityEngine.Object.Destroy(clip);
     }
 }
 ```
