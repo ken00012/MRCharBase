@@ -97,9 +97,9 @@
     <Compile Include="Assets\UniGLTF\Editor\SerializedPropertyEditor.cs" />
     <Compile Include="Assets\UniGLTF\Editor\UniGLTF\Serialization\ListSerialization.cs" />
     <Compile Include="Assets\UniGLTF\Editor\UniGLTF\Serialization\DeserializerGenerator.cs" />
+    <Compile Include="Assets\UniGLTF\Editor\UniGLTF\ExportDialog\ExportDialogBase.cs" />
     <Compile Include="Assets\UniGLTF\Editor\Animation\AnimationKeyframeData.cs" />
     <Compile Include="Assets\UniGLTF\Editor\UniGLTF\Serialization\EnumSerialization.cs" />
-    <Compile Include="Assets\UniGLTF\Editor\UniGLTF\ExportDialog\ExportDialogBase.cs" />
     <Compile Include="Assets\UniGLTF\Editor\MeshUtility\MeshProcessDialogEditor.cs" />
     <Compile Include="Assets\UniGLTF\Editor\JsonSchema\Schemas\DictionaryJsonSchema.cs" />
     <Compile Include="Assets\UniGLTF\Editor\UniGLTF\Validation\NameValidator.cs" />

@@ -8,6 +8,26 @@
 /Temp
 /UserSettings
 
-# APIキー保護: StreamingAssetsのconfig.jsonはgitで追跡しない
+# 自動生成ファイル
+*.csproj
+*.sln
+*.suo
+*.user
+*.pidb
+*.booproj
+/obj/
+/Build/
+/Builds/
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.idea/
+*.swp
+
+# APIキー保護
 /Assets/StreamingAssets/config.json
 /Assets/StreamingAssets/config.json.meta

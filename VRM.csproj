@@ -64,8 +64,8 @@
     <Compile Include="Assets\VRM\Runtime\IO\VRMImporterContextExtensions.cs" />
     <Compile Include="Assets\VRM\Runtime\IO\VRMException.cs" />
     <Compile Include="Assets\VRM\Runtime\Format\VRMSerializer.g.cs" />
-    <Compile Include="Assets\VRM\Runtime\Format\VRMSpecVersion.cs" />
     <Compile Include="Assets\VRM\Runtime\Extensions\glTF_VRMExtensions.cs" />
+    <Compile Include="Assets\VRM\Runtime\Format\VRMSpecVersion.cs" />
     <Compile Include="Assets\VRM\Runtime\LookAt\Matrix4x4Extensions.cs" />
     <Compile Include="Assets\VRM\Runtime\IO\VRMImporterContext.cs" />
     <Compile Include="Assets\VRM\Runtime\SpringBone\VRMSpringUtility.cs" />

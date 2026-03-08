@@ -82,8 +82,8 @@
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\Byte4.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniJSON\FormatterExtensions.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\TextureIO\TextureSamplerUtil.cs" />
-    <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\MaterialIO\MaterialExporter.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniJSON\Json\JsonString.cs" />
+    <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\MaterialIO\MaterialExporter.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\MaterialIO\MaterialImporterParamExtensions.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\Parser\GlbBinaryParser.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniJSON\Extensions\TypeExtensions.cs" />
@@ -139,8 +139,8 @@
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\UShort4.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\Parser\ZipArchivedGltfFileParser.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\Format\ExtensionsAndExtras\gltfExtension.cs" />
-    <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\GltfUtility.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\Parser\GlbFileParser.cs" />
+    <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\GltfUtility.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\MaterialIO\GltfUnlitMaterialImporter.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniJSON\Json\JsonParser.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniJSON\Extensions\EnumExtensions.cs" />
@@ -158,8 +158,8 @@
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\NativeArrayManager.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\MeshIO\PositionMinMax.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\BytesReader.cs" />
-    <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\Format\glTFTexture.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\Format\glbTypes.cs" />
+    <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\Format\glTFTexture.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniGLTF\IO\TextureIO\GltfTextureDescriptorGenerator.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\Extensions\IndexExtensions.cs" />
     <Compile Include="Assets\UniGLTF\Runtime\UniJSON\Json\JsonValue.cs" />
