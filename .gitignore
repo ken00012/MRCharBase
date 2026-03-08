@@ -7,3 +7,7 @@
 /MRCharBase.sln
 /Temp
 /UserSettings
+
+# APIキー保護: StreamingAssetsのconfig.jsonはgitで追跡しない
+/Assets/StreamingAssets/config.json
+/Assets/StreamingAssets/config.json.meta
