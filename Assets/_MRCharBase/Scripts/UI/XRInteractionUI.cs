@@ -7,8 +7,8 @@ using UnityEngine;
 /// <summary>
 /// XR UI の字幕・エラー表示を担当する MonoBehaviour。
 /// World Space Canvas に配置する（Meta XR Interaction SDK 対応）。
-/// ShowError() は内部で "⚠ {message}" を自動付加する。
-/// 呼び出し側で "⚠ " を手動付加しないこと（二重になる）。
+/// ShowError() は内部で "[Error] {message}" を自動付加する。
+/// 呼び出し側で "[Error] " を手動付加しないこと（二重になる）。
 /// </summary>
 public class XRInteractionUI : MonoBehaviour
 {
@@ -25,12 +25,12 @@ public class XRInteractionUI : MonoBehaviour
 
     /// <summary>
     /// エラーメッセージを赤色で表示する。
-    /// 内部で "⚠ " を自動付加するため、呼び出し側では付加しないこと。
+    /// 内部で "[Error] " を自動付加するため、呼び出し側では付加しないこと。
     /// </summary>
     public void ShowError(string message)
     {
         subtitleText.color = errorColor;
-        subtitleText.text  = $"⚠ {message}";
+        subtitleText.text  = $"[Error] {message}";
     }
 
     /// <summary>字幕テキストをクリアする。</summary>

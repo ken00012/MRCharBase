@@ -46,7 +46,7 @@ public class CharacterStateController : MonoBehaviour
     }
 
     /// <summary>
-    /// PokeInteractable の WhenSelectingStarted イベントに接続（引数なしで Inspector から呼べる）
+    /// PokeInteractable の WhenSelect() イベントに接続（引数なしで Inspector から呼べる）
     /// </summary>
     public void OnRecordButtonDown()
     {
@@ -58,7 +58,7 @@ public class CharacterStateController : MonoBehaviour
     }
 
     /// <summary>
-    /// PokeInteractable の WhenSelectingEnded イベントに接続（引数なしで Inspector から呼べる）
+    /// PokeInteractable の WhenUnselect() イベントに接続（引数なしで Inspector から呼べる）
     /// </summary>
     public void OnRecordButtonUp()
     {
@@ -117,6 +117,17 @@ public class CharacterStateController : MonoBehaviour
             ui.ShowError("デバッグ入力でエラーが発生しました。");
             SetState(CharacterState.Idle);
         }
+    }
+
+    // デバッグ用ラッパー（引数なし・Inspectorの3点メニューから呼び出し可能）
+    // Use_Mock = Falseのときに、LLMへのインプットとしてエディタ上で使えるかも...
+    // Use_Mock = Trueのときは、MockSpeechToTextServiceがよばれ、そのテキストが疑似的に処理される
+    [SerializeField] private string _debugText = "debug用テキスト";
+
+    [ContextMenu("Debug: OnDebugInput")]
+    public void OnDebugInputFromMenu()
+    {
+        OnDebugInput(_debugText).Forget();
     }
 
     /// <summary>LLM→TTS→再生の共通処理（RunPipelineAsync・OnDebugInput 両方から呼ぶ）</summary>

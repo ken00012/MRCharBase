@@ -28,6 +28,10 @@ Desktop.ini
 .idea/
 *.swp
 
+# 大容量フォントアセット
+/Assets/TextMesh Pro/Fonts/NotoSansJP-Medium SDF.asset
+/Assets/TextMesh Pro/Fonts/NotoSansJP-Medium SDF.asset.meta
+
 # APIキー保護
 /Assets/StreamingAssets/config.json
 /Assets/StreamingAssets/config.json.meta

@@ -636,6 +636,17 @@ public class CharacterStateController : MonoBehaviour
             SetState(CharacterState.Idle);
         }
     }
+    
+    // デバッグ用ラッパー（引数なし・Inspectorの3点メニューから呼び出し可能）
+    // Use_Mock = Falseのときに、LLMへのインプットとしてエディタ上で使えるかも...
+    // Use_Mock = Trueのときは、MockSpeechToTextServiceがよばれ、そのテキストが疑似的に処理される
+    [SerializeField] private string _debugText = "debug用テキスト";
+
+    [ContextMenu("Debug: OnDebugInput")]
+    public void OnDebugInputFromMenu()
+    {
+        OnDebugInput(_debugText).Forget();
+    }
 
     // LLM→TTS→再生の共通処理（RunPipelineAsync・OnDebugInput 両方から呼ぶ）
     private async UniTask RunFromLLMAsync(string question)
@@ -774,7 +785,7 @@ public class UnityMicrophoneRecorder : IAudioRecorder
 ```
 
 > [!TIP]
-> **デバッグ用テキスト入力**: `CharacterStateController.OnDebugInput(text)` をEditorボタンに割り当てるか、Inspectorから直接呼び出してください。
+> **デバッグ用テキスト入力**: `CharacterStateController.OnDebugInput(text)` をInspectorの3点メニューからDebug: OnDebugInputを実行してください。
 
 ### 10.7 SpatialAudioPlayer（空間音響）
 
@@ -858,7 +869,7 @@ public class XRInteractionUI : MonoBehaviour
     public void ShowError(string message)
     {
         subtitleText.color = errorColor;
-        subtitleText.text  = $"⚠ {message}";
+        subtitleText.text  = $"[Error] {message}";
     }
 
     public void Clear() => subtitleText.text = string.Empty;
@@ -921,7 +932,7 @@ public class XRInteractionUI : MonoBehaviour
 
 - [ ] `AppSetup.cs`（`useMock = true`）・`CharacterStateController.cs` 実装
 - [ ] `Mock*.cs` 3種・`XRInteractionUI.cs` 実装
-- [ ] Editor: `OnDebugInput()` でLLM→TTS→再生フロー確認（STTスキップ）
+- [ ] Inspector: `OnDebugInput()` でLLM→TTS→再生フロー確認（STTスキップ）
 - [ ] Editor: 状態遷移・字幕表示・エラー表示を確認
 
 #### Step 4: 音声入力・ボタンUI
