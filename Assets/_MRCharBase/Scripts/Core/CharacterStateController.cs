@@ -45,27 +45,25 @@ public class CharacterStateController : MonoBehaviour
         _recorder    = recorder;
     }
 
-    /// <summary>
-    /// PokeInteractable の WhenSelect() イベントに接続（引数なしで Inspector から呼べる）
-    /// </summary>
-    public void OnRecordButtonDown()
+    // PokeInteractable の WhenSelect() イベントに接続
+    public void OnRecordButtonTapped()
     {
-        if (_recorder == null) return; // Inject 完了前に呼ばれた場合は無視
-        if (_state != CharacterState.Idle) return;
-        SetState(CharacterState.Listening);
-        ui.ShowSubtitle("録音中..."); // Listening 状態のフィードバック（状態遷移表と対応）
-        _recorder.StartRecording();
-    }
+        if (_recorder == null) return; // Inject 未完了ガード
 
-    /// <summary>
-    /// PokeInteractable の WhenUnselect() イベントに接続（引数なしで Inspector から呼べる）
-    /// </summary>
-    public void OnRecordButtonUp()
-    {
-        if (_recorder == null) return; // Inject 完了前に呼ばれた場合は無視
-        if (_state != CharacterState.Listening) return;
-        byte[] wavData = _recorder.StopRecording();
-        RunPipelineAsync(wavData).Forget();
+        if (_state == CharacterState.Idle)
+        {
+            // 待機中 → 録音開始
+            SetState(CharacterState.Listening);
+            ui.ShowSubtitle("録音中... もう一度タップで送信");
+            _recorder.StartRecording();
+        }
+        else if (_state == CharacterState.Listening)
+        {
+            // 録音中 → 録音停止してパイプライン実行
+            byte[] wavData = _recorder.StopRecording();
+            RunPipelineAsync(wavData).Forget();
+        }
+        // Thinking / Speaking 中のタップは無視（二重実行防止）
     }
 
     private async UniTaskVoid RunPipelineAsync(byte[] wavData)
@@ -166,6 +164,7 @@ public class CharacterStateController : MonoBehaviour
     {
         _state = newState;
         presenter.OnStateChanged(newState); // TeacherPresenter への通知（省略禁止）
+        ui.UpdateButtonColor(newState); // ← 追加
     }
 
     /// <summary>AppSetup から設定読み込み失敗時に呼ばれる致命的エラー表示</summary>
