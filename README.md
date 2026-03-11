@@ -8,6 +8,7 @@
 ## 概要
 
 MR 空間に表示された先生キャラクター（VRM）に音声で質問すると、AI が回答を生成し、組み込まれた特定の音声合成された声で返答を再生できるアプリです。
+※先生キャラクターはあくまで例であり、他のキャラクターでも代用可能。
 
 | 項目 | 内容 |
 |---|---|
@@ -40,7 +41,7 @@ ElevenLabs  → AudioClip（MP3）
 ### キャラクターの状態遷移
 
 ```
-Idle ──[ボタン押下]──→ Listening ──[ボタン離す]──→ Thinking ──[TTS取得]──→ Speaking
+Idle ──[ボタンタップ]──→ Listening ──[再度ボタンタップ]──→ Thinking ──[TTS取得]──→ Speaking
  ↑                        |                           |                        |
  └──────────────[エラー発生時 / 再生完了]──────────────────────────────────────┘
 ```
@@ -127,8 +128,11 @@ StreamingAssets/config.json
 - `audioSource` → 同 GameObject の `AudioSource` コンポーネント
 
 **RecordButton（InteractableUnityEventWrapper）**
-- `WhenSelectingStarted` → `CharacterStateController.OnRecordButtonDown()`
-- `WhenSelectingEnded` → `CharacterStateController.OnRecordButtonUp()`
+- `WhenSelect()` → `CharacterStateController.OnRecordButtonTapped()`
+
+**RecordButton（XRInteractionUI）**
+- `recordButtonBackground` → `RecordButton > ButtonBackground` の Image
+- `buttonLabel` → `RecordButton > ButtonLabel` の TextMeshPro
 
 ### 6. 日本語フォント設定
 
@@ -221,8 +225,8 @@ StreamingAssets/
 
 ## 関連ドキュメント
 
-- `prototype_design.md` — 詳細設計書（v4.3）
+- `prototype_design.md` — 詳細設計書（v4.4）
 
 ---
 
-*設計書バージョン: prototype_design.md v4.3*
+*設計書バージョン: prototype_design.md v4.4*
