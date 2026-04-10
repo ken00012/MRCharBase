@@ -15,4 +15,9 @@ public class AppConfig
     public string elevenLabsApiKey;
     public string elevenLabsVoiceId;
     public string systemPrompt;
+
+    // Fish Audio TTS 用フィールド
+    public string fishAudioApiKey;
+    public string fishAudioReferenceId;
+    public string fishAudioModel;       // 空文字の場合は ExternalFishAudioClient 側で "s2-pro" にフォールバック
 }

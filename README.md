@@ -98,10 +98,13 @@ Assets/
 
 ```json
 {
-  "openAIApiKey": "sk-xxxxxxxxxxxxxxxxxxxx",
-  "elevenLabsApiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "elevenLabsVoiceId": "xxxxxxxxxxxxxxxxxxxxxxxx",
-  "systemPrompt": "あなたは大学の先生です。学生に優しく丁寧に説明してください。回答は簡潔で分かりやすくしてください。"
+    "openAIApiKey": "sk-xxxxxxxxxxxxxxxxxxxx",
+    "elevenLabsApiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "elevenLabsVoiceId": "xxxxxxxxxxxxxxxxxxxxxxxx",
+    "fishAudioApiKey": "YOUR_FISH_AUDIO_API_KEY",
+    "fishAudioReferenceId": "YOUR_REFERENCE_ID",
+    "fishAudioModel": "s2-pro",
+    "systemPrompt": "あなたは大学の先生です。学生に優しく丁寧に説明してください。回答は簡潔で分かりやすくしてください。"
 }
 ```
 
