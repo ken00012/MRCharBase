@@ -14,6 +14,7 @@ using UnityEngine;
 public class CharacterStateController : MonoBehaviour
 {
     [SerializeField] private XRInteractionUI  ui;
+    [SerializeField] private UserSubtitleUI   userSubtitleUI; // ユーザー発話字幕（STT結果表示用）
     [SerializeField] private TeacherPresenter presenter;
 
     private ISpeechToTextService  _sttService;
@@ -55,6 +56,7 @@ public class CharacterStateController : MonoBehaviour
             // 待機中 → 録音開始
             SetState(CharacterState.Listening);
             ui.ShowSubtitle("録音中... もう一度タップで送信");
+            if (userSubtitleUI != null) userSubtitleUI.Clear(); // 前回のユーザー発話字幕をクリア
             _recorder.StartRecording();
         }
         else if (_state == CharacterState.Listening)
@@ -82,7 +84,11 @@ public class CharacterStateController : MonoBehaviour
         }
 
         string question;
-        try { question = await _sttService.TranscribeAsync(wavData); }
+        try
+        {
+            question = await _sttService.TranscribeAsync(wavData);
+            if (userSubtitleUI != null) userSubtitleUI.ShowUserSubtitle(question); // STT成功時にユーザー発話を表示
+        }
         catch (Exception e)
         {
             Debug.LogError($"[STT] {e.Message}");
