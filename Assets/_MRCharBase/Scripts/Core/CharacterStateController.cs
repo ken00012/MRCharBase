@@ -160,7 +160,7 @@ public class CharacterStateController : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"[TTS] {e.Message}");
-            ui.ShowError("音声合成に失敗しました。");
+            ui.ShowError("音声合成に失敗しました。\n [TTS]" + e.Message );
             // SetState(Idle) はここに書かない → finally に委ねる（03_ai_guard.md 準拠）
         }
         finally { SetState(CharacterState.Idle); } // 正常・異常どちらも必ず Idle に戻す

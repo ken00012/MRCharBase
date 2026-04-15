@@ -1,0 +1,5 @@
+C:/Users/pc-de/Documents/Unity-games/MRCharBase/.utmp/RelWithDebInfo/50472x54/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/pc-de/Documents/Unity-games/MRCharBase/.utmp/RelWithDebInfo/50472x54/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/pc-de/Documents/Unity-games/MRCharBase/.utmp/RelWithDebInfo/50472x54/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/pc-de/Documents/Unity-games/MRCharBase/.utmp/RelWithDebInfo/50472x54/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/pc-de/Documents/Unity-games/MRCharBase/.utmp/RelWithDebInfo/50472x54/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
