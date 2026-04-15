@@ -2802,7 +2802,7 @@ MonoBehaviour:
   audioPlayer: {fileID: 5267967203909616488}
   voiceInput: {fileID: 1896416787}
   useMock: 0
-  ttsEngine: 1
+  ttsEngine: 2
 --- !u!4 &1893501571
 Transform:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ internal class ElevenLabsRequest
 /// DownloadHandlerAudioClip を明示的に設定する（UnityWebRequestMultimedia.GetAudioClip() 使用禁止）。
 /// （§6・04-platform-gotchas §2 準拠）
 /// </summary>
-public class ExternalTextToSpeechClient : ITextToSpeechService
+public class ExternalElevenLabsClient : ITextToSpeechService
 {
     private const string BaseUrl = "https://api.elevenlabs.io/v1/text-to-speech";
     private const string ModelId = "eleven_multilingual_v2";
@@ -30,7 +30,7 @@ public class ExternalTextToSpeechClient : ITextToSpeechService
     private readonly string _apiKey;
     private readonly string _voiceId;
 
-    public ExternalTextToSpeechClient(AppConfig config)
+    public ExternalElevenLabsClient(AppConfig config)
     {
         _apiKey  = config.elevenLabsApiKey;
         _voiceId = config.elevenLabsVoiceId;

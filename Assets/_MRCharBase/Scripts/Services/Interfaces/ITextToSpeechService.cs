@@ -6,7 +6,7 @@ using UnityEngine;
 
 /// <summary>
 /// TTS（音声合成）サービスのインターフェース。
-/// 実装: ExternalTextToSpeechClient（本番）/ MockTextToSpeechService（Mock）
+/// 実装: ExternalElevenLabsClient（本番）/ MockTextToSpeechService（Mock）
 /// </summary>
 public interface ITextToSpeechService
 {

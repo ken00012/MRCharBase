@@ -20,4 +20,9 @@ public class AppConfig
     public string fishAudioApiKey;
     public string fishAudioReferenceId;
     public string fishAudioModel;       // 空文字の場合は ExternalFishAudioClient 側で "s2-pro" にフォールバック
+
+    // Google Cloud TTS 用フィールド
+    public string googleTtsApiKey;
+    public string googleTtsLanguageCode; // 空文字の場合は ExternalGoogleTtsClient 側で "ja-JP" にフォールバック
+    public string googleTtsVoiceName;    // 空文字の場合は ExternalGoogleTtsClient 側で "ja-JP-Neural2-B" にフォールバック
 }
