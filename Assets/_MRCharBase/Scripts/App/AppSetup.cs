@@ -20,7 +20,7 @@ public class AppSetup : MonoBehaviour
     [SerializeField] private bool useMock = false; // 削除禁止（01_always_on.md D項）
 
     // TTS エンジン選択（Inspector で切り替え可能）
-    public enum TtsEngine { ElevenLabs, FishAudio, Google }
+    public enum TtsEngine { ElevenLabs, FishAudio, Google, OpenAI }
     [SerializeField] private TtsEngine ttsEngine = TtsEngine.Google;
 
     private void Start() => InitAsync().Forget(); // 非同期初期化（Awake ではなく Start 使用）
@@ -48,13 +48,24 @@ public class AppSetup : MonoBehaviour
         // ③ サービス生成・注入
         ISpeechToTextService  stt   = useMock ? new MockSpeechToTextService()  : new ExternalSpeechToTextClient(config);
         ILanguageModelService llm   = useMock ? new MockLanguageModelService() : new ExternalLanguageModelClient(config);
-        ITextToSpeechService  tts   = useMock
-            ? (ITextToSpeechService)new MockTextToSpeechService()
-            : ttsEngine == TtsEngine.FishAudio
-                ? new ExternalFishAudioClient(config)
-                : ttsEngine == TtsEngine.Google
-                    ? new ExternalGoogleTtsClient(config)
-                    : new ExternalElevenLabsClient(config);
+        
+        // TTS エンジン選択（useMock = true の場合は常に Mock）
+        ITextToSpeechService tts;
+        if (useMock)
+        {
+            tts = new MockTextToSpeechService();
+        }
+        else
+        {
+            tts = ttsEngine switch
+            {
+                TtsEngine.FishAudio => new ExternalFishAudioClient(config),
+                TtsEngine.Google    => new ExternalGoogleTtsClient(config),
+                TtsEngine.OpenAI    => new ExternalOpenAiTtsClient(config),
+                _                   => new ExternalElevenLabsClient(config), // ElevenLabs（default）
+            };
+        }
+        
         ISpatialAudioPlayer   audio = audioPlayer; // MonoBehaviour は Inspector 経由 DI
         IAudioRecorder        rec   = voiceInput;  // VoiceInputHandler : IAudioRecorder
 
