@@ -1,60 +1,58 @@
-// 配置: World Space Canvas 内の RecordButton GameObject 配下（§10.8・§13 準拠）
-// 責務: 字幕 / エラー / 状態表示（ボタンイベント発火元は InteractableUnityEventWrapper）
+// 配置: UICanvas root GameObject（§10.8・§13 準拠 — RecordButton 配下から UICanvas root へ移動）
+// 責務: 字幕 / エラー / 状態表示。ボタン色は ButtonStateColorController に委譲する。
+//       ボタンイベント発火元は Button.OnClick（PointableCanvasModule 経由）。
 
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
-/// XR UI の字幕・エラー表示を担当する MonoBehaviour。
-/// World Space Canvas に配置する（Meta XR Interaction SDK 対応）。
+/// XR UI の字幕・エラー表示、およびボタン状態の通知を担当する MonoBehaviour。
+/// World Space Canvas root に配置する（Meta XR Interaction SDK 対応）。
+///
 /// ShowError() は内部で "[Error] {message}" を自動付加する。
 /// 呼び出し側で "[Error] " を手動付加しないこと（二重になる）。
+///
+/// ボタンの Image.color 管理は ButtonStateColorController に完全委譲する。
+/// このクラスは色値を直接持たない。
 /// </summary>
-
 public class XRInteractionUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text   subtitleText;
-    [SerializeField] private Image      recordButtonBackground; // ← 追加
-    [SerializeField] private TMP_Text buttonLabel; // ← 追加
-    [SerializeField] private Color normalColor  = Color.white;
-    [SerializeField] private Color errorColor   = Color.red;
-    [SerializeField] private Color idleColor    = new Color(0.86f, 0.23f, 0.23f); // 赤
-    [SerializeField] private Color listeningColor = new Color(0.23f, 0.72f, 0.34f); // 緑（録音中）
+    [SerializeField] private TMP_Text                   subtitleText;
+    [SerializeField] private TMP_Text                   buttonLabel;
+    [SerializeField] private ButtonStateColorController _buttonColor; // RecordButtonをアサイン
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color errorColor  = Color.red;
 
-    /// 通常の字幕テキストを表示する。
+    /// <summary>通常の字幕テキストを表示する。</summary>
     public void ShowSubtitle(string text)
     {
         subtitleText.color = normalColor;
         subtitleText.text  = text;
     }
 
-    /// エラーメッセージを赤色で表示する。
+    /// <summary>エラーメッセージを赤色で表示する。</summary>
     public void ShowError(string message)
     {
         subtitleText.color = errorColor;
         subtitleText.text  = $"[Error] {message}";
     }
 
-    /// 字幕テキストをクリアする。
+    /// <summary>字幕テキストをクリアする。</summary>
     public void Clear() => subtitleText.text = string.Empty;
 
-    // CharacterStateController.SetState() から呼ぶ
+    /// <summary>
+    /// CharacterStateController.SetState() から呼ぶ。
+    /// ボタン色の制御は ButtonStateColorController に委譲し、
+    /// このメソッドはラベルテキストの更新のみ行う。
+    /// </summary>
     public void UpdateButtonColor(CharacterState state)
     {
-        if (recordButtonBackground != null)
-        {
-            recordButtonBackground.color = state == CharacterState.Listening
-                ? listeningColor
-                : idleColor;
-            // Thinking / Speaking 中はボタン操作が無視されるため idleColor で統一
-        }
+        // 色の管理を ButtonStateColorController に委譲（Image.color の直接書き込みなし）
+        _buttonColor?.SetState(state == CharacterState.Listening);
 
+        // ボタンラベルのテキスト更新（Listening = ON, それ以外 = OFF）
+        // Thinking / Speaking 中はボタン操作が無視されるため OFF 表示で統一
         if (buttonLabel != null)
-        {
-            buttonLabel.text = state == CharacterState.Listening
-                ? "ON"
-                : "OFF";
-        }
+            buttonLabel.text = state == CharacterState.Listening ? "ON" : "OFF";
     }
 }
