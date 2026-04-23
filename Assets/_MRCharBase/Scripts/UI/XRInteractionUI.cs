@@ -20,7 +20,7 @@ public class XRInteractionUI : MonoBehaviour
     [SerializeField] private TMP_Text                   subtitleText;
     [SerializeField] private TMP_Text                   buttonLabel;
     [SerializeField] private ButtonStateColorController _buttonColor; // RecordButtonをアサイン
-    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color normalColor = Color.black;
     [SerializeField] private Color errorColor  = Color.red;
 
     /// <summary>通常の字幕テキストを表示する。</summary>
