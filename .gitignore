@@ -18,6 +18,7 @@
 /obj/
 /Build/
 /Builds/
+/.utmp/
 
 # OS生成ファイル
 .DS_Store
