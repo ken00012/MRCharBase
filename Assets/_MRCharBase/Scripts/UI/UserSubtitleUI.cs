@@ -13,7 +13,7 @@ using UnityEngine;
 public class UserSubtitleUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text userSubtitleText;
-    [SerializeField] private Color    userTextColor = Color.cyan; // AIの字幕（白）と区別するため色を分ける
+    [SerializeField] private Color    userTextColor = Color.black;
 
     /// <summary>
     /// ユーザーの発話テキスト（STT 結果）を表示する。
