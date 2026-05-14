@@ -1,7 +1,7 @@
-// 配置: UICanvas/RecordButton GameObject
-// 責務: ON/OFF状態色とPointer Hover/Press色を競合なしに合成し Image に適用する
+// 配置: UICanvas/RecordButton/ButtonBackground GameObject
+// 責務: ON/OFF状態色とインタラクション色（Hover/Press）を競合なしに合成し Image に適用する。
 //       XRInteractionUI.UpdateButtonColor() から SetState() を呼ぶ。
-//       Button.Transition = None と組み合わせて使用すること。
+//       ISDK ネイティブ使用時は InteractableUnityEventWrapper から External* メソッドを呼ぶ。
 
 using System.Collections;
 using UnityEngine;
@@ -12,10 +12,13 @@ using UnityEngine.UI;
 /// ボタンの「状態色（ON/OFF）」と「インタラクション色（Hover/Press）」を
 /// 競合なく合成して Image.color に適用する MonoBehaviour。
 ///
-/// PointableCanvasModule が Ray/Poke 両入力を IPointerXxxHandler に変換するため、
-/// このスクリプトは Ray・Poke どちらの入力でも正しく反応する。
+/// 2つの動作モードをサポートする:
+///   1. EventSystem モード: PointableCanvasModule が Ray/Poke 入力を
+///      IPointerXxxHandler に変換して届ける（OnPointerEnter/Down等）。
+///   2. ISDK ネイティブモード: InteractableUnityEventWrapper の
+///      WhenHover/WhenSelect から External* メソッドを直接呼び出す。
 ///
-/// 注意: Button コンポーネントの Transition は必ず None に設定すること。
+/// 注意: Button コンポーネントを使用する場合、Transition は必ず None にすること。
 ///       Image.color への書き込みはこのスクリプトのみが行う（一元管理）。
 /// </summary>
 [RequireComponent(typeof(Image))]
@@ -48,7 +51,7 @@ public class ButtonStateColorController : MonoBehaviour,
         ApplyColor(instant: true); // 初期色を即時適用
     }
 
-    // ─── 外部API ──────────────────────────────────────────────────────────────
+    // ─── 外部API（状態切り替え）──────────────────────────────────────────────
 
     /// <summary>
     /// XRInteractionUI.UpdateButtonColor() から呼ぶ。
@@ -60,8 +63,24 @@ public class ButtonStateColorController : MonoBehaviour,
         ApplyColor();
     }
 
-    // ─── IPointerXxxHandler ───────────────────────────────────────────────────
-    // PointableCanvasModule が Ray/Poke 両入力をこれらのインターフェースに変換して届ける
+    // ─── ISDK ネイティブ用 External API ──────────────────────────────────────
+    // InteractableUnityEventWrapper の WhenHover / WhenSelect イベントから
+    // UnityEvent 経由で呼び出す。EventSystem 不使用時の代替インターフェース。
+
+    /// <summary>ISDK WhenHoverEnter から呼ぶ。Hover 開始時に色をホバー色へ遷移する。</summary>
+    public void ExternalHoverEnter() { _isHovered = true;  ApplyColor(); }
+
+    /// <summary>ISDK WhenHoverExit から呼ぶ。Hover 終了時に通常色へ戻す。</summary>
+    public void ExternalHoverExit()  { _isHovered = false; _isPressed = false; ApplyColor(); }
+
+    /// <summary>ISDK WhenSelectEnter（Select 開始）から呼ぶ。Press 開始時にプレス色へ遷移する。</summary>
+    public void ExternalPressEnter() { _isPressed = true;  ApplyColor(); }
+
+    /// <summary>ISDK WhenSelectExit（Select 終了）から呼ぶ。Press 終了時にホバー色または通常色へ戻す。</summary>
+    public void ExternalPressExit()  { _isPressed = false; ApplyColor(); }
+
+    // ─── IPointerXxxHandler（互換性維持）────────────────────────────────────
+    // PointableCanvasModule 使用時は引き続きここへイベントが届く。
 
     public void OnPointerEnter(PointerEventData _) { _isHovered = true;  ApplyColor(); }
     public void OnPointerExit(PointerEventData _)  { _isHovered = false; _isPressed = false; ApplyColor(); }
