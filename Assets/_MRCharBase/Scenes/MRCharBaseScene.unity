@@ -3434,7 +3434,7 @@ MonoBehaviour:
   characterController: {fileID: 5267967203909616487}
   audioPlayer: {fileID: 5267967203909616488}
   voiceInput: {fileID: 1896416787}
-  useMock: 0
+  useMock: 1
   ttsEngine: 3
 --- !u!4 &1893501571
 Transform:
