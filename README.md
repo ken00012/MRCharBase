@@ -187,4 +187,4 @@ CharacterStateController（中心制御）
 
 ---
 
-*Based on: prototype_design.md v5.0 | Unity 6000.0.60f1 | Meta Quest 3*
+*Based on: prototype_design.md v5.2 | Unity 6000.0.60f1 | Meta Quest 3*
